@@ -123,7 +123,8 @@ class Note(object):
         if not any(char.isalpha() or char.isdigit() for char in self._title):
             self._title = "_" + str(self._uuid)
 
-        self._filename = check_for_double(make_dir_check(self._path), path_safe_string(self._title[:128]) + ".md")
+        # self._filename = check_for_double(make_dir_check(self._path), path_safe_string(self._title[:128]) + ".md")
+        self._filename = check_for_double(make_dir_check(self._path), self._created_date.strftime('%Y%m%d%H%M%S')+'.md')
 
     def create_placeholders(self):
         # Create place holder to preserve spaces and tabs
@@ -198,6 +199,7 @@ class Note(object):
             self._created_date = datetime.strptime(date_string, self.ISO_DATE_FORMAT)
         except (TypeError, ValueError):
             self._created_date = datetime.now()
+        self.create_filename()
 
     def set_updated_date(self, date_string):
         try:
@@ -210,4 +212,4 @@ class Note(object):
 
     def set_title(self, title):
         self._title = title
-        self.create_filename()
+        # self.create_filename()
