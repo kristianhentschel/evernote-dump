@@ -71,7 +71,8 @@ class Note(object):
             self._html = self._html.replace("[evernote-dump-table-cleaner]", match)
 
         # Insert a title to be parsed in markdown
-        self._html = ("<h1>" + self._title + "</h1>" + self._html).encode('utf-8')
+        print('adding title to html:' + self._title);
+        self._html = ("<h1>" + self._title.replace('&', '&amp;') + "</h1>" + self._html).encode('utf-8')
 
     def convert_evernote_markings(self):
         self.convert_evernote_markings_attachments()
